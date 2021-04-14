@@ -8,13 +8,17 @@
     <h1>Upload new File</h1>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
+        <br>
       <input type=submit value=Upload>
     </form>
 
     <div class="col-sm-12">
           <br>
-          <br> Прогнозируемый клас:
+        {% if response==1 %}
+          Прогнозируемый клас:
+        {% endif %}
              <p style="font-size:50px">{{ result }}</p>
+
   </div>
   </body>
 </html>

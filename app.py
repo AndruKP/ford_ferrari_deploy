@@ -71,13 +71,17 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename))
             file.save(filename)
+
             sub_generator = datagen.flow(preprocess_image(filename), shuffle=False)
             sub_generator.reset()
+
             predictions = loaded_model.predict_generator(sub_generator, steps=len(sub_generator), verbose=1)
             predictions = np.argmax(predictions, axis=-1)  # multiple categories
             result = class_names[predictions[0]]
+
             os.remove(filename)
-            return render_template('index.html', result=result)
+
+            return render_template('index.html', result=result, response=1)
     return render_template('index.html')
 
 
